@@ -1,0 +1,61 @@
+Q)  Check if all digits of a number divide it
+Given a number n, find whether all digits of n divide it or not.
+
+Examples:
+
+Input : 128
+Output : Yes
+128 % 1 == 0, 128 % 2 == 0, and 128 % 8 == 0.
+
+Input : 130
+Output : No
+Recommended: Please try your approach on {IDE} first, before moving on to the solution.
+We want to test whether each digit is non-zero and divides the number. For example, with 128, we want to test d != 0 && 128 % d == 0 for d = 1, 2, 8. To do that, we need to iterate over each digit of the number.
+
+CPPJavaPython3
+// CPP program to check the number 
+// is divisible by all digits are not.
+#include <bits/stdc++.h>
+using namespace std;
+ 
+// Function to check the divisibility 
+// of the number by its digit.
+bool checkDivisibility(int n, int digit)
+{
+    // If the digit divides the number 
+    // then return true else return false.
+    return (digit != 0 && n % digit == 0);
+}
+ 
+// Function to check if all digits 
+// of n divide it or not
+bool allDigitsDivide(int n)
+{
+    int temp = n;
+    while (temp > 0) {
+ 
+        // Taking the digit of the
+        // number into digit var.
+        int digit = n % 10;
+        if (!(checkDivisibility(n, digit)))
+            return false;
+ 
+        temp /= 10;
+    }
+    return true;
+}
+ 
+// Driver function
+int main()
+{
+    int n = 128;
+    if (allDigitsDivide(n))
+       cout << "Yes"; 
+    else
+       cout << "No";
+    return 0;
+}
+
+
+Output:
+Yes
