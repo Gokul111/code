@@ -1,0 +1,78 @@
+Münchhausen Number
+Given a number N, output all Munchhausen numbers from 1 to n.
+
+Introduction : A Münchhausen number is a number equal to the sum of its digits raised to each digit’s power. It is similar to that of Narcissistic Number.
+
+For example:   3^3+4^4+3^3+5^5=3435
+
+
+One can also be considered as Münchhausen Number because when 1 raised to the power 1 is 1 itself.
+
+Since, the number 3435 can be expressed as sum of each digits of the number when each digits of the numbers are raised to power equivalent to the digits itself i.e., ((3 raised to the power 3) + (4 raised to the power 4) + (3 raised to the power 3) + (5 raised to the power 5)) will give output to the same number i.e. 3435, then the number can be called as Münchhausen Number.
+
+Example:
+
+Input : 500
+Output : 1
+One is the only Münchhausen Number smaller
+than or equal to 500.
+
+Input : 5000
+Output : 1  3435
+1 and 3435 are the only Münchhausen Numbers smaller
+than or equal to 5000.
+Recommended: Please try your approach on {IDE} first, before moving on to the solution.
+We precompute i raised to power i for every possible digit i where i varies from 0 to 9. After precomputing these values, we traverse through all digits of every number smaller than equal to n and compute sum of digit raised to power digit.
+
+C++
+// C++ code for Münchhausen Number
+#include <bits/stdc++.h>
+using namespace std; 
+ 
+// pwr[i] is going to store i raised to
+// power i.
+unsigned pwr[10];
+ 
+// Function to check out whether
+// the number is Münchhausen
+// Number or not 
+bool isMunchhausen(unsigned n) {
+    unsigned sum = 0;
+    int temp = n;
+ 
+    while (temp) {
+        sum += pwr[(temp % 10)];
+        temp /= 10;
+    }
+ 
+    return (sum == n);
+}
+ 
+void printMunchhausenNumbers(int n)
+{
+    // Precompute i raised to power i for every i
+    for (int i = 0; i < 10; i++ )
+        pwr[i] = (unsigned)pow( (float)i, (float)i );
+     
+    // The input here is fixed i.e. it will
+    // check up to n
+    for (unsigned i = 1; i <= n; i++) 
+ 
+        // check the integer for Münchhausen Number, 
+        // if yes then print out the number
+        if (isMunchhausen(i))
+            cout << i << "\n";
+}
+ 
+// Driver Code
+int main() {
+    int n = 10000;
+    printMunchhausenNumbers(n);
+    return 0;
+}
+Run on IDE
+
+Output:
+1
+3435
+Note : If the definition 0^0 = 0 is adopted, then there are exactly four Münchhausen numbers: 0, 1, 3435, and 438579088 [Source : MathWorld]
